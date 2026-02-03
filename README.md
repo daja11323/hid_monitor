@@ -1,6 +1,6 @@
 # HID Monitor SDK
  
-一个跨平台的HID设备监控库，支持Windows和macOS系统。提供Rust原生接口和C FFI接口，可以监控HID设备的插拔事件并列出当前连接的设备。
+一个跨平台的HID设备监控库，支持Windows和macOS系统。提供Rust原生接口，可以监控HID设备的插拔事件并列出当前连接的设备。
 
 ## 功能特性
 
@@ -35,16 +35,8 @@ cargo build --release --bin hid_monitor_example
 
 编译完成后，在 `target/release/` 目录下会生成以下文件：
 
-### Windows平台
-- `hid_monitor.dll` - 动态链接库
-- `hid_monitor.lib` - 静态库
-- `hid_monitor.dll.lib` - 导入库（用于链接DLL）
-- `libhid_monitor.rlib` - Rust库格式
-
-### macOS平台
-- `libhid_monitor.dylib` - 动态链接库
-- `libhid_monitor.a` - 静态库
-- `libhid_monitor.rlib` - Rust库格式
+- `libhid_monitor.rlib` - Rust 库
+- `hid_monitor_example` / `hid_monitor_example.exe` - 示例程序
 
 ## 使用方法
 
@@ -78,145 +70,9 @@ fn main() {
 }
 ```
 
-### C接口
+### C 接口
 
-#### 头文件
-
-包含头文件：
-```c
-#include "hid_monitor.h"
-```
-
-#### 基本使用
-
-```c
-#include <stdio.h>
-#include "yjs_hid_monitor.h"
-
-int main() {
-    // 列出当前设备
-    uint32_t count = 0;
-    CDeviceInfo* devices = yjs_hid_list_devices(&count);
-    
-    if (devices) {
-        for (uint32_t i = 0; i < count; i++) {
-            printf("Device: %s, VID: 0x%04X, PID: 0x%04X\\n",
-                   devices[i].path, devices[i].vid, devices[i].pid);
-        }
-        yjs_hid_free_device_list(devices, count);
-    }
-
-    // 启动监听器
-    uint32_t monitor_id = yjs_hid_start_monitor();
-    if (monitor_id == 0) {
-        printf("Failed to start monitor\\n");
-        return 1;
-    }
-
-    // 接收事件
-    CHidEvent event;
-    while (1) {
-        int result = yjs_hid_try_recv_event(monitor_id, &event);
-        if (result == 1) {
-            if (event.event_type == YJS_HID_EVENT_ARRIVED) {
-                printf("Device arrived: %s\\n", event.device.path);
-            } else {
-                printf("Device removed: %s\\n", event.device.path);
-            }
-            yjs_hid_free_device_info(&event.device);
-        } else if (result == 0) {
-            // 没有事件，等待
-            usleep(100000); // 100ms
-        } else {
-            // 错误或断开连接
-            break;
-        }
-    }
-
-    // 停止监听器
-    yjs_hid_stop_monitor(monitor_id);
-    return 0;
-}
-```
-
-#### 编译C示例
-
-##### Windows (使用MSVC)
-```cmd
-cl example.c /I. hid_monitor.dll.lib /Fe:example.exe
-```
-
-##### Windows (使用MinGW)
-```bash
-gcc example.c -I. -L. -lhid_monitor -o example.exe
-```
-
-##### macOS
-```bash
-gcc example.c -I. -L. -lhid_monitor -o example
-```
-
-## API参考
-
-### C接口函数
-
-#### 设备管理
-- `CDeviceInfo* hid_list_devices(uint32_t* count)` - 列出当前设备
-- `void hid_free_device_list(CDeviceInfo* devices, uint32_t count)` - 释放设备列表
-
-#### 监听器管理
-- `uint32_t hid_start_monitor(void)` - 启动监听器
-- `int32_t hid_stop_monitor(uint32_t monitor_id)` - 停止监听器
-
-#### 事件接收
-- `int32_t hid_try_recv_event(uint32_t monitor_id, CHidEvent* event)` - 非阻塞接收事件
-- `int32_t hid_recv_event(uint32_t monitor_id, CHidEvent* event)` - 阻塞接收事件
-
-#### 内存管理
-- `void yjs_hid_free_string(char* ptr)` - 释放字符串
-- `void yjs_hid_free_device_info(CDeviceInfo* device)` - 释放设备信息
-
-### 数据结构
-
-#### CDeviceInfo
-```c
-typedef struct {
-    char* path;           // 设备路径
-    uint32_t vid;         // 厂商ID
-    uint32_t pid;         // 产品ID
-    int32_t has_vid;      // 是否有厂商ID
-    int32_t has_pid;      // 是否有产品ID
-} CDeviceInfo;
-```
-
-#### CHidEvent
-```c
-typedef struct {
-    CEventType event_type;      // 事件类型
-    CDeviceInfo device;         // 设备信息
-} CHidEvent;
-```
-
-#### CEventType
-```c
-typedef enum {
-    HID_EVENT_ARRIVED = 0,  // 设备插入
-    HID_EVENT_REMOVED = 1   // 设备移除
-} CEventType;
-```
-
-## 返回值说明
-
-### 监听器函数返回值
-- `hid_start_monitor()`: 返回监听器ID，0表示失败
-- `hid_stop_monitor()`: 1=成功, 0=监听器不存在, -1=错误
-
-### 事件接收函数返回值
-- `1`: 成功接收到事件
-- `0`: 没有事件（仅非阻塞模式）
-- `-1`: 参数错误
-- `-2`: 连接断开
-- `-3`: 监听器不存在
+目前本库**不再提供** C 语言 FFI 接口与头文件，仅作为 Rust 库使用。如果后续需要 C 接口，可以在新的版本中单独设计和实现 FFI 层。
 
 ## 注意事项
 

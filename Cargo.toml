@@ -5,7 +5,6 @@ edition = "2021"
 
 [lib]
 name = "hid_monitor"
-crate-type = ["cdylib", "staticlib", "rlib"]
 
 [[bin]]
 name = "hid_monitor_example"
