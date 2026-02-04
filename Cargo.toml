@@ -1,12 +1,12 @@
 [package]
 name = "hid_monitor"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "Cross-platform Rust library for monitoring HID device plug/unplug events and enumerating current HID devices. Supports Windows and macOS."
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/XuNazgul/hid_monitor"
-keywords = ["hid", "usb", "device", "monitor", "human-interface"]
+keywords = ["hid", "usb", "device", "monitor", "human-interface", "hidmonitor", "mouse", "keyboard", "windows", "macos", "plug", "hotplug", "watcher"]
 categories = ["hardware-support", "os::windows-apis", "os::macos-apis"]
 
 [lib]
